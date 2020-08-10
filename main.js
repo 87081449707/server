@@ -1,7 +1,7 @@
 console.log('server');
 
 //peer js
-var peer = new Peer('party', {key: 'myapikey'})
+var peer = new Peer(['party'], {key: 'myapikey'})
 
 peer.on('open', function(id) {
   alert('peer js id: ' + id)
