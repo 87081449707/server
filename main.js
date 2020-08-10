@@ -1,7 +1,7 @@
-console.log('Hello World!');
+console.log('server');
 
 //peer js
-var peer = new Peer(['party0000000000'])
+var peer = new Peer(['party'])
 
 peer.on('open', function(id) {
   alert('peer js id: ' + id)
@@ -12,8 +12,9 @@ peer.on('error', function(error) {
 })
 
 peer.on('connection', function(conn) {
+  console.log('connection')
   conn.on('data', function(data) {
-    alert(data)
+    console.log(data)
   })
 })
 
