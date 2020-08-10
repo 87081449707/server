@@ -19,13 +19,8 @@ peer.on('connection', function(conn) {
 
 // touchpad
 document.addEventListener('touchstart', function(event) {
-  //console.log('server: ')
+  
 }, false)
 
 // party
 var party = []
-
-party['all'] = []
-
-party['i'] = []
-
