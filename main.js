@@ -11,6 +11,12 @@ peer.on('error', function(error) {
   alert('peer js error: ' + error)
 })
 
+peer.on('connection', function(conn) {
+  conn.on('data', function(data) {
+    alert(data)
+  })
+})
+
 // touchpad
 document.addEventListener('touchstart', function(event) {
   console.log('server: ')
