@@ -12,7 +12,6 @@ peer.on('error', function(error) {
 })
 
 peer.on('connection', function(conn) {
-  console.log('connection')
   conn.on('data', function(data) {
     console.log(data)
   })
