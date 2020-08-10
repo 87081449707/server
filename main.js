@@ -13,13 +13,13 @@ peer.on('error', function(error) {
 
 peer.on('connection', function(conn) {
   conn.on('data', function(data) {
-    console.log(data)
+    alert(data)
   })
 })
 
 // touchpad
 document.addEventListener('touchstart', function(event) {
-  console.log('server: ')
+  //console.log('server: ')
 }, false)
 
 // party
