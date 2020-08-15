@@ -1,26 +1,18 @@
-console.log('server');
+console.log('Hello world');
 
 //peer js
-var peer = new Peer()
+var server = new Peer()
 
-peer.on('open', function(id) {
-  //alert('peer js id: ' + id)
-  document.getElementById('peer_id').innerHTML = 'peer id: ' + id
+server.on('open', function(id) {
+  document.getElementById('log').innerHTML += 'peer id: ' + id
 })
 
-peer.on('error', function(error) {
-  //alert('peer js error: ' + error)
+server.on('error', function(error) {
+  document.getElementById('log').innerHTML += 'server error: ' + error
 })
 
-peer.on('connection', function(conn) {
-  conn.on('data', function(data) {
-    document.getElementById('peer_id').innerHTML = '<br>' + data
-    //alert(data)
-  })
-  
-  conn.on('error', function(error) {
-    //alert('peer js conn error: ' + error)
-  })
+server.on('data', function(data) {
+  document.getElementById('log').innerHTML += data
 })
 
 // touchpad
