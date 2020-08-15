@@ -15,6 +15,12 @@ server.on('data', function(data) {
   document.getElementById('log').innerHTML += data
 })
 
+server.on('connection', function(connect) {
+  connect.on('data', function(data) {
+    document.getElementById('log').innerHTML += data
+  })
+})
+
 // touchpad
 document.addEventListener('touchstart', function(event) {
   
