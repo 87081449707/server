@@ -11,10 +11,6 @@ server.on('error', function(error) {
   document.getElementById('log').innerHTML += 'server error: ' + error
 })
 
-server.on('data', function(data) {
-  document.getElementById('log').innerHTML += data
-})
-
 server.on('connection', function(connect) {
   connect.on('data', function(data) {
     document.getElementById('log').innerHTML += data
