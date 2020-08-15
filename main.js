@@ -14,11 +14,12 @@ peer.on('error', function(error) {
 
 peer.on('connection', function(conn) {
   conn.on('data', function(data) {
-    alert(data)
+    document.getElementById('peer_id').innerHTML = '<br>' + data
+    //alert(data)
   })
   
   conn.on('error', function(error) {
-    alert('peer js conn error: ' + error)
+    //alert('peer js conn error: ' + error)
   })
 })
 
