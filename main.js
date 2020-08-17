@@ -1,27 +1,35 @@
-console.log('Hello world');
+console.log('Hello world')
 
 //peer js
-var server = new Peer()
+var peer = []
+peer.server = new Peer()
 
-server.on('open', function(id) {
-  document.getElementById('log').innerHTML += 'peer id: ' + id
+peer.server.on('open', function(id) {
+  document.getElementById('log').innerHTML += 'peer server id: ' + id
 })
 
-server.on('error', function(error) {
-  document.getElementById('log').innerHTML += 'server error: ' + error
+peer.server.on('error', function(error) {
+  document.getElementById('log').innerHTML += 'peer server error: ' + error
 })
 
-server.on('connection', function(connect) {
-  document.getElementById('log').innerHTML += connect
+peer.server.on('connection', function(connect) {
   
   connect.on('data', function(data) {
+    
+    var receive = JSON.parse(data)
+    
+    party.id = []
+    party.id.geolocation = []
+    party.id.geolocation.x = data.party.geolocation.x
+    party.id.geolocation.y = data.party.geolocation.y
+    
+    var send = []
+    
+    for (var i=0; i<=server.party.length; i++) {
+      connect.send(party.id[0])
+    }
+    
     document.getElementById('log').innerHTML += data
-    if (data == 'id') {
-      
-    }
-    if (data == 'geolocation') {
-      
-    }
   })
 })
 
@@ -31,4 +39,5 @@ document.addEventListener('touchstart', function(event) {
 }, false)
 
 // party
-var party = []
+party = []
+
