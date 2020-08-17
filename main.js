@@ -20,8 +20,10 @@ server.on('connection', function(connect) {
   }
   
   
+  
+  
   connect.on('data', function(data) {
-    document.getElementById('log').innerHTML += data
+    document.getElementById('log').innerHTML += JSON.stringify(data)
     if (data == 'client') {
       
     }
