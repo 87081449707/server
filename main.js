@@ -12,8 +12,17 @@ server.on('error', function(error) {
 })
 
 server.on('connection', function(connect) {
+  
+  document.getElementById('log').innerHTML += connect
+  
   connect.on('data', function(data) {
-    document.getElementById('log').innerHTML += data
+    //document.getElementById('log').innerHTML += data
+    if (data == 'client') {
+      
+    }
+    if (data == '') {
+      
+    }
   })
 })
 
