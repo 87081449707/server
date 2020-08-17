@@ -15,6 +15,11 @@ server.on('connection', function(connect) {
   
   document.getElementById('log').innerHTML += connect
   
+  connect.on('open'), function(data) {
+    document.getElementById('log').innerHTML += data
+  }
+  
+  
   connect.on('data', function(data) {
     document.getElementById('log').innerHTML += data
     if (data == 'client') {
