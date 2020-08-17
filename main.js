@@ -12,22 +12,14 @@ server.on('error', function(error) {
 })
 
 server.on('connection', function(connect) {
-  
   document.getElementById('log').innerHTML += connect
   
-  connect.on('open'), function(data) {
-    document.getElementById('log').innerHTML += data
-  }
-  
-  
-  
-  
   connect.on('data', function(data) {
-    document.getElementById('log').innerHTML += JSON.stringify(data)
-    if (data == 'client') {
+    document.getElementById('log').innerHTML += data
+    if (data == 'id') {
       
     }
-    if (data == '') {
+    if (data == 'geolocation') {
       
     }
   })
