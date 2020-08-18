@@ -23,8 +23,9 @@ server_connect = setInterval(function(){
     document.getElementById('log').innerHTML += '<br> prerJs connect ' + JSON.parce(connect)
     
     connect.on('data', function(data) {
-      //server_receive(JSON.parse(data))
+      document.getElementById('log').innerHTML += '<br> peerJs data: ' + JSON.parce(data)
       
+      connect.send('hi')
     })
   })
 }, 1000)
