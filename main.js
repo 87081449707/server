@@ -1,43 +1,43 @@
 console.log('Hello world')
 
 //peer js
-var peer = []
-peer.server = new Peer()
+var server
+var server_id
 
-peer.server.on('open', function(id) {
-  document.getElementById('log').innerHTML += 'peer server id: ' + id
-})
+server_connect = setInterval(function() {
+  server = new Peer()
 
-peer.server.on('error', function(error) {
-  document.getElementById('log').innerHTML += 'peer server error: ' + error
-})
-
-peer.server.on('connection', function(connect) {
-  
-  connect.on('data', function(data) {
+  server.on('open', function(id) {
+    document.getElementById('log').innerHTML += 'peer server id: ' + id
     
-    var receive = JSON.parse(data)
-    
-    party.id = []
-    party.id.geolocation = []
-    party.id.geolocation.x = data.party.geolocation.x
-    party.id.geolocation.y = data.party.geolocation.y
-    
-    var send = []
-    
-    for (var i=0; i<=server.party.length; i++) {
-      connect.send(party.id[0])
-    }
-    
-    document.getElementById('log').innerHTML += data
+    clearInterval(server_connect)
   })
-})
+
+  server.on('error', function(error) {
+    document.getElementById('log').innerHTML += 'peer server error: ' + error
+  })
+  
+  server.on('connection', function(connect) {
+    connect.on('data', function(data) {
+      server_receive(JSON.parse(data))
+    })
+  })
+}, 1000)
+
+server_send = function (data){
+  document.getElementById('log').innerHTML += 'send: ' + data
+  
+  server.send(JSON.stringify(data))
+}
+server_receive = function (data){
+  document.getElementById('log').innerHTML += 'receive: ' + data
+}
 
 // touchpad
 document.addEventListener('touchstart', function(event) {
-  
+
 }, false)
 
 // party
-party = []
+var party
 
