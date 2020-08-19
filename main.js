@@ -27,7 +27,7 @@ server_connect = setInterval(function(){
       
       if (data.party){
         party_my(data)
-        connect.send()
+        connect.send(party_other(data))
       }
     })
   })
@@ -42,8 +42,14 @@ document.addEventListener('touchstart', function(event) {
 var party = []
 
 party_my = function (data){
-  var length = party.length
-  party[length] = {id : data.id, geolocation : {x : data.deolocation.x, y : data.geolocation.y}}
+  for (var i = 0; i < party.length; i++){
+    if (party[i].id == data.id){
+      return
+    }
+    if (i == party.length - 1){
+      party[i] = {id : data.id, geolocation : {x : data.deolocation.x, y : data.geolocation.y}}
+    }
+  }
 }
 party_other = function (data){
   var array = []
