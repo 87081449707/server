@@ -45,5 +45,19 @@ document.addEventListener('touchstart', function(event) {
 }, false)
 
 // party
-var party
+var party = []
 
+party_my = function (data){
+  var length = party.length
+  party[length] = {id : data.id, geolocation : {x : data.deolocation.x, y : data.geolocation.y}}
+}
+party_other = function (data){
+  var distance = Math.sqrt(Math.pow(data.geolocation.x - party.geolocation.x, 2) + Math.pow(data.geolocation.y - party.geolocation.y, 2))
+  var array = []
+  for (var i = 0; i < party.length; i++){
+    if (distance <= party[i]){
+      array.splice(i, 0, distance)
+      //array.length = data.length
+    }
+  }
+}
