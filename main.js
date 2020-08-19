@@ -36,7 +36,7 @@ server_connect = setInterval(function(){
 // touchpad
 document.addEventListener('touchstart', function(event) {
   //document.getElementById('log').innerHTML += '<br>'
-}, false
+}, false)
 
 // party
 var party = []
