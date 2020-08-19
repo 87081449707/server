@@ -17,6 +17,8 @@ server_connect = setInterval(function(){
 
   server.on('error', function(error) {
     document.getElementById('log').innerHTML += '<br> peerJs server error: ' + error
+    
+    clearInterval(server_connect)
   })
   
   server.on('connection', function(connect){
