@@ -8,7 +8,7 @@ server_connect = setInterval(function(){
   server = new Peer()
 
   server.on('open', function(id){
-    document.getElementById('log').innerHTML += '<br> peerJs server id: ' + id
+    //document.getElementById('log').innerHTML += '<br> peerJs server id: ' + id
     
     server_id = id
     
@@ -16,30 +16,22 @@ server_connect = setInterval(function(){
   })
 
   server.on('error', function(error) {
-    document.getElementById('log').innerHTML += '<br> peerJs server error: ' + error
+    //document.getElementById('log').innerHTML += '<br> peerJs server error: ' + error
     
     clearInterval(server_connect)
   })
   
   server.on('connection', function(connect){
-    document.getElementById('log').innerHTML += '<br> prerJs connect ' + JSON.parce(connect)
-    
     connect.on('data', function(data) {
-      document.getElementById('log').innerHTML += '<br> peerJs data: ' + JSON.parce(data)
+      //document.getElementById('log').innerHTML += '<br> peerJs data: ' + data
       
-      connect.send('hi')
+      if (data.party){
+        party_my(data)
+        connect.send()
+      }
     })
   })
 }, 1000)
-
-server_send = function (id, data){
-  document.getElementById('log').innerHTML += 'peerJs server send: ' + 'id: ' + id + ' ' + 'data: ' + data
-  
-  //server.send(JSON.stringify(data))
-}
-server_receive = function (data){
-  document.getElementById('log').innerHTML += 'peerJs server receive: ' + data
-}
 
 // touchpad
 document.addEventListener('touchstart', function(event) {
@@ -54,12 +46,16 @@ party_my = function (data){
   party[length] = {id : data.id, geolocation : {x : data.deolocation.x, y : data.geolocation.y}}
 }
 party_other = function (data){
-  var distance = Math.sqrt(Math.pow(data.geolocation.x - party.geolocation.x, 2) + Math.pow(data.geolocation.y - party.geolocation.y, 2))
   var array = []
+  
   for (var i = 0; i < party.length; i++){
+    var distance = Math.sqrt(Math.pow(data.geolocation.x - party.geolocation.x, 2) + Math.pow(data.geolocation.y - party.geolocation.y, 2))
+    
     if (distance <= party[i]){
       array.splice(i, 0, distance)
-      //array.length = data.length
+      array.length = data.number
+      
+      return array
     }
   }
 }
