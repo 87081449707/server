@@ -35,13 +35,15 @@ server_connect = setInterval(function(){
 
 // touchpad
 document.addEventListener('touchstart', function(event) {
-  //document.getElementById('log').innerHTML += server_id
-}, false)
+  //document.getElementById('log').innerHTML += '<br>'
+}, false
 
 // party
 var party = []
 
 party_my = function (data){
+  document.getElementById('log').innerHTML += '<br> party: ' + party
+  
   for (var i = 0; i < party.length; i++){
     if (party[i].id == data.id){
       return
