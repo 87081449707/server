@@ -8,7 +8,7 @@ server_connect = setInterval(function(){
   server = new Peer()
 
   server.on('open', function(id){
-    document.getElementById('log').innerHTML += '<br> peerJs server id: ' + id
+    document.getElementById('log').innerHTML += '<br> peerJs server open id: ' + id
     
     server_id = id
     
