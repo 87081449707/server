@@ -25,7 +25,7 @@ server_connect = setInterval(function(){
     connect.on('data', function(data) {
       document.getElementById('log').innerHTML += '<br> peerJs data: ' + data
       
-      //connect.send('hi')
+      connect.send('hi')
       
         party_my(data)
         connect.send(party_other(data))
@@ -42,7 +42,7 @@ document.addEventListener('touchstart', function(event) {
 var party = []
 
 party_my = function (data){
-  document.getElementById('log').innerHTML += '<br> party: ' + party
+  document.getElementById('log').innerHTML += '<br> party: ' + data
   
   for (var i = 0; i < party.length; i++){
     if (party[i].id == data.id){
