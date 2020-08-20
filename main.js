@@ -3,8 +3,7 @@ console.log('Hello world')
 //peer js
 var server
 var server_id
-
-server_connect = setInterval(function() {
+var server_connect = setInterval(function() {
   server = new Peer()
 
   server.on('open', function(id) {
@@ -38,8 +37,7 @@ document.addEventListener('touchstart', function(event) {
 
 // party
 var party = []
-
-party_data = function (data) {
+var party_data = function (data) {
   if (data.party == 'other') {
     var array = []
 
