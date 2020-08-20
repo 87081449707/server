@@ -25,6 +25,8 @@ server_connect = setInterval(function(){
     connect.on('data', function(data) {
       document.getElementById('log').innerHTML += '<br> peerJs data: ' + data
       
+      connect.send('hi')
+      
       if (data.party){
         party_my(data)
         connect.send(party_other(data))
