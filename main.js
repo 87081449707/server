@@ -8,7 +8,7 @@ server_connect = setInterval(function(){
   server = new Peer()
 
   server.on('open', function(id){
-    //document.getElementById('log').innerHTML += '<br> peerJs server id: ' + id
+    document.getElementById('log').innerHTML += '<br> peerJs server id: ' + id
     
     server_id = id
     
@@ -16,14 +16,14 @@ server_connect = setInterval(function(){
   })
 
   server.on('error', function(error) {
-    //document.getElementById('log').innerHTML += '<br> peerJs server error: ' + error
+    document.getElementById('log').innerHTML += '<br> peerJs server error: ' + error
     
     clearInterval(server_connect)
   })
   
   server.on('connection', function(connect){
     connect.on('data', function(data) {
-      //document.getElementById('log').innerHTML += '<br> peerJs data: ' + data
+      document.getElementById('log').innerHTML += '<br> peerJs data: ' + data
       
       if (data.party){
         party_my(data)
@@ -31,7 +31,7 @@ server_connect = setInterval(function(){
       }
     })
   })
-}, 1000)
+}, 2000)
 
 // touchpad
 document.addEventListener('touchstart', function(event) {
