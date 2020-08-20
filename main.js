@@ -73,6 +73,12 @@ var z = []
 z[0] = 0
 z[1] = 1
 
-for (var i = 0; i < z.length; i++){
+for (var i = 0; i <= z.length; i++){
   console.log(i)
+  
+  if (i == z.length){
+    z[i] = z.length
+    
+    console.log(z)
+  }
 }
