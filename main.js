@@ -77,8 +77,8 @@ for (var i = 0; i <= z.length; i++){
   console.log(i)
   
   if (i == z.length){
-    z[i] = z.length
+    //z[i] = z.length
     
-    console.log(z)
+    //console.log(z)
   }
 }
