@@ -1,5 +1,4 @@
 console.log('Hello world')
-
 //peer js
 var server
 var server_id
@@ -29,12 +28,10 @@ var server_connect = setInterval(function() {
     })
   })
 }, 2000)
-
 // touchpad
 document.addEventListener('touchstart', function(event) {
   //document.getElementById('log').innerHTML += '<br>'
 }, false)
-
 // party
 var party = []
 var party_data = function (data) {
