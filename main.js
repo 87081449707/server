@@ -67,3 +67,5 @@ party_other = function (data){
     }
   }
 }
+
+var z = []
