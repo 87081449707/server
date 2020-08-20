@@ -69,3 +69,10 @@ party_other = function (data){
 }
 
 var z = []
+
+z[0] = 0
+z[1] = 1
+
+for (var i = 0; i < z.length; i++){
+  console.log(i)
+}
