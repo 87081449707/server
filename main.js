@@ -70,16 +70,10 @@ party_other = function (data){
 
 var z = []
 
-z[0] = 0
-z[1] = 1
-z[z.length] = 2
-
 for (var i = 0; i <= z.length; i++){
-  console.log(i)
-  
   if (i == z.length){
-    //z[z.length] = []
-    
+    z[i] = i
     console.log(z)
+    break
   }
 }
