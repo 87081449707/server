@@ -26,9 +26,7 @@ server_connect = setInterval(function() {
       console.log('peerJs data: ' + data)
 
       connect.send('hi')
-
-      party_my(data)
-      connect.send(party_other(data))
+      connect.send(party_data(JSON.parse(data)))
     })
   })
 }, 2000)
@@ -69,15 +67,5 @@ party_data = function (data) {
         break
       }
     }
-  }
-}
-
-var z = []
-
-for (var i = 0; i <= z.length; i++) {
-  if (i == z.length) {
-    z[i] = i
-    console.log(z)
-    break
   }
 }
