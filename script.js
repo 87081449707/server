@@ -42,7 +42,11 @@ party[0] = {geolocation: {x: 0, y: 0}}
 party[1] = {geolocation: {x: 1, y: 1}}
 
 var party_data = function (data) {
+  document.getElementById('log').innerHTML += '<br>' + 'party data'
+  
   if (data.party == 'other') {
+    document.getElementById('log').innerHTML += '<br>' + 'party data other'
+    
     var array = []
 
     for (var i = 0; i < party.length; i++) {
