@@ -7,9 +7,9 @@ var server_connect = setInterval(function() {
 
   server.on('open', function(id) {
     document.getElementById('log').innerHTML += '<br>' + 'peerJs server open'
-    
+
     server_id = id
-    
+
     document.getElementById('log').innerHTML += '<br>' + 'peerJs server id: ' + server_id
 
     clearInterval(server_connect)
@@ -24,7 +24,7 @@ var server_connect = setInterval(function() {
   server.on('connection', function(connect) {
     connect.on('data', function(data) {
       document.getElementById('log').innerHTML += '<br>' + 'peerJs data: ' + data
-      
+
       party_data(JSON.parse(data))
       //connect.send('hi')
       //connect.send(party_data(JSON.parse(data)))
@@ -33,42 +33,43 @@ var server_connect = setInterval(function() {
 }, 2000)
 // touchpad
 document.addEventListener('touchstart', function(event) {
-  
+
 }, false)
 // party
 var party = []
 
-party[0] = {geolocation: {x: 0, y: 0}}
-party[1] = {geolocation: {x: 1, y: 1}}
+party[0] = { geolocation: { x: 0, y: 0 } }
+party[1] = { geolocation: { x: 1, y: 1 } }
 
-var party_data = function (data) {
+var party_data = function(data) {
   document.getElementById('log').innerHTML += '<br>' + 'party data'
-  
+
   if (data.party == 'other') {
     document.getElementById('log').innerHTML += '<br>' + 'party data other'
-    
+
     var array = []
 
     for (var i = 0; i < party.length; i++) {
-      var distance = Math.sqrt(Math.pow(data.geolocation.x - party.geolocation.x, 2) + Math.pow(data.geolocation.y - party.geolocation.y, 2))
-      
-      document.getElementById('log').innerHTML += '<br>' + 'distance: ' + dist
-      
-      if (distance <= party[i]) {
-        array.splice(i, 0, distance)
-        array.length = data.number
+      var distance = Math.sqrt(Math.pow(data.geolocation.x - party[i].geolocation.x, 2) + Math.pow(data.geolocation.y - party[i].geolocation.y, 2))
 
-        return array
-      }
+      document.getElementById('log').innerHTML += '<br>' + 'distance: ' + distance
+
+      array[array.length] = { distance: distance, people: 1 }
     }
+    document.getElementById('log').innerHTML += '<br>' + 'array: ' + array
+
+    return array
   }
   if (data.party == 'my') {
     for (var i = 0; i <= party.length; i++) {
       if (i == party.length) {
-        party[i] = {id: data.id, geolocation: {x: data.deolocation.x, y: data.geolocation.y}}
-        
+        party[party.length] = { id: data.id, geolocation: { x: data.deolocation.x, y: data.geolocation.y } }
+
         break
       }
     }
   }
 }
+
+var data = { party: 'other', id: 'id', geolocation: { x: 10, y: 10 } }
+party_data(data)
