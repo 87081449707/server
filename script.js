@@ -1,4 +1,4 @@
-console.log('Hello world')
+document.getElementById('log').innerHTML += '<br>' + 'Hello world'
 //peer js
 var server
 var server_id
