@@ -6,31 +6,33 @@ var server_connect = setInterval(function() {
   server = new Peer()
 
   server.on('open', function(id) {
-    console.log('peerJs server open id: ' + id)
-
+    document.getElementById('log').innerHTML += '<br>' + 'peerJs server open'
+    
     server_id = id
+    
+    document.getElementById('log').innerHTML += '<br>' + 'peerJs server id: ' + server_id
 
     clearInterval(server_connect)
   })
 
   server.on('error', function(error) {
-    console.log('peerJs server error: ' + error)
+    document.getElementById('log').innerHTML += '<br>' + 'peerJs server error: ' + error
 
     clearInterval(server_connect)
   })
 
   server.on('connection', function(connect) {
     connect.on('data', function(data) {
-      console.log('peerJs data: ' + data)
+      document.getElementById('log').innerHTML += '<br>' + 'peerJs data: ' + data
 
-      connect.send('hi')
-      connect.send(party_data(JSON.parse(data)))
+      //connect.send('hi')
+      //connect.send(party_data(JSON.parse(data)))
     })
   })
 }, 2000)
 // touchpad
 document.addEventListener('touchstart', function(event) {
-  //document.getElementById('log').innerHTML += '<br>'
+  
 }, false)
 // party
 var party = []
@@ -52,13 +54,8 @@ var party_data = function (data) {
   if (data.party == 'my') {
     for (var i = 0; i <= party.length; i++) {
       if (i == party.length) {
-        party[i] = {
-          id: data.id,
-          geolocation: {
-            x: data.deolocation.x,
-            y: data.geolocation.y
-          }
-        }
+        party[i] = {id: data.id, geolocation: {x: data.deolocation.x, y: data.geolocation.y}}
+        
         break
       }
     }
