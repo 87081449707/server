@@ -24,7 +24,8 @@ var server_connect = setInterval(function() {
   server.on('connection', function(connect) {
     connect.on('data', function(data) {
       document.getElementById('log').innerHTML += '<br>' + 'peerJs data: ' + data
-
+      
+      party_data(JSON.parse(data))
       //connect.send('hi')
       //connect.send(party_data(JSON.parse(data)))
     })
@@ -36,13 +37,19 @@ document.addEventListener('touchstart', function(event) {
 }, false)
 // party
 var party = []
+
+party[0] = {geolocation: {x: 0, y: 0}}
+party[1] = {geolocation: {x: 1, y: 1}}
+
 var party_data = function (data) {
   if (data.party == 'other') {
     var array = []
 
     for (var i = 0; i < party.length; i++) {
       var distance = Math.sqrt(Math.pow(data.geolocation.x - party.geolocation.x, 2) + Math.pow(data.geolocation.y - party.geolocation.y, 2))
-
+      
+      document.getElementById('log').innerHTML += '<br>' + 'distance: ' + dist
+      
       if (distance <= party[i]) {
         array.splice(i, 0, distance)
         array.length = data.number
