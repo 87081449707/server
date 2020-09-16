@@ -1,75 +1,130 @@
-document.getElementById('log').innerHTML += '<br>' + 'Hello world!'
-//peer js
-var server
-var server_id
-var server_connect = setInterval(function() {
-  server = new Peer()
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+let peerJs = {
+  peer: undefined,
+  id: undefined,
+  timer: setInterval(function() {
+    if (!peerJs.peer) {
+      peerJs.peer = new Peer()
 
-  server.on('open', function(id) {
-    document.getElementById('log').innerHTML += '<br>' + 'peerJs server open'
+      peerJs.peer.on('open', function(id) {
+        clearInterval(peerJs.timer)
 
-    server_id = id
+        peerJs.peer.id = id
 
-    document.getElementById('log').innerHTML += '<br>' + 'peerJs server id: ' + server_id
+        console.log('peerJs.peer open')
+      })
+      peerJs.peer.on('error', function(error) {
+        clearInterval(peerJs.timer)
 
-    clearInterval(server_connect)
-  })
-
-  server.on('error', function(error) {
-    document.getElementById('log').innerHTML += '<br>' + 'peerJs server error: ' + error
-
-    clearInterval(server_connect)
-  })
-
-  server.on('connection', function(connect) {
-    connect.on('data', function(data) {
-      document.getElementById('log').innerHTML += '<br>' + 'peerJs data: ' + data
-
-      party_data(JSON.parse(data))
-      //connect.send('hi')
-      //connect.send(party_data(JSON.parse(data)))
-    })
-  })
-}, 2000)
-// touchpad
-document.addEventListener('touchstart', function(event) {
-
-}, false)
-// party
-var party = []
-
-party[0] = { geolocation: { x: 0, y: 0 } }
-party[1] = { geolocation: { x: 1, y: 1 } }
-
-var party_data = function(data) {
-  document.getElementById('log').innerHTML += '<br>' + 'party data'
-
-  if (data.party == 'other') {
-    document.getElementById('log').innerHTML += '<br>' + 'party data other'
-
-    var array = []
-
-    for (var i = 0; i < party.length; i++) {
-      var distance = Math.sqrt(Math.pow(data.geolocation.x - party[i].geolocation.x, 2) + Math.pow(data.geolocation.y - party[i].geolocation.y, 2))
-
-      document.getElementById('log').innerHTML += '<br>' + 'distance: ' + distance
-
-      array[array.length] = { distance: distance, people: 1 }
+        console.log('peerJs.peer error: ' + error)
+      })
+      peerJs.peer.on('connection', function(connect) {
+        connect.on('data', function(data) {
+          //connect.send(party_message(JSON.parse(data)))
+        })
+      })
     }
-    document.getElementById('log').innerHTML += '<br>' + 'array: ' + array
+  },
+    1000),
+}
+let party = {
+  data: undefined,
+  time: {
+    second: undefined,
+    timer: setInterval(function() {
+      if (!party.time.second) {
+        party.time.second = 0
+      }
+      if (party.time.second) {
+        party.time.second += 1
+      }
+    },
+      1000),
+  },
+  clean: setInterval(function() {
+    for (let i = 0; i < party.data.length; i++) {
+      let time = party.time.second - party.data[i].second
 
-    return array
-  }
-  if (data.party == 'my') {
-    for (var i = 0; i <= party.length; i++) {
-      if (i == party.length) {
-        party[party.length] = { id: data.id, geolocation: { x: data.deolocation.x, y: data.geolocation.y } }
-
-        break
+      if (time > 20) {
+        party.data.splice(i, 1)
       }
     }
+  },
+    15000),
+  action: {
+    name: function(data) {
+      if (data.name == 'list') {
+        return party.list(data)
+      }
+      if (data.name == 'create') {
+        return party.create(data)
+      }
+      if (data.name == 'connect') {
+        return party.connect(data)
+      }
+    },
+    list: function(data) {
+      let array = {
+        data: undefined,
+        splice: undefined,
+        slice: undefined,
+      }
+      let Object = {
+        distance: undefined,
+        people: undefined,
+        create: function(distance, people) {
+          let Object = {
+            distance: distance,
+            people: people,
+          }
+
+          return this.Object
+        },
+      }
+
+      for (let i = 0; i < party.data.length; i++) {
+        if (party.data) {
+          Object.distance = Math.sqrt(Math.pow(data.geolocation.x - party.data[i].geolocation.x, 2) + Math.pow(data.geolocation.y - party.data[i].geolocation.y, 2))
+          Object.people = party.data[i].people
+        }
+
+        for (let j = 0; j < 10; j++) {
+          if (!array.data) {
+            array.data = []
+          }
+          if (!array.data[j]) {
+            array.data[j] = Object.create(Object.distance, Object.people)
+
+            continue
+          }
+          if (Object.distance <= array.data[j].distance) {
+            array.data.splice(j, 0, Object.create(Object.distance, Object.people))
+            array.data.slice(0, 9)
+
+            continue
+          }
+        }
+      }
+
+      return array.data
+    },
+    create: function(data) {
+      for (let i = 0; i < party.data.length; i++) {
+        if (party.data[i].id == data.id) {
+          return
+        }
+      }
+      for (let i = 0; i <= party.data.length; i++) {
+        if (!party.data[i]) {
+          party.data[i] = data
+
+          return data
+        }
+        if (i == party.data.length) {
+          party.data[i] = data
+        }
+      }
+    },
+    connect: function(data) {},
   }
 }
-
-var data = { party: 'other', id: 'id', geolocation: { x: 10, y: 10 } }
-party_data(data)
